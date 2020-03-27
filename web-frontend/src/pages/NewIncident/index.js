@@ -34,7 +34,7 @@ export default function NewIncident() {
         history.push("/profile");
     } catch (err) {
         console.log(err);
-        alert("Erro no cadastro, tente novamente");
+        alert("Error");
     }
   }
   return (
@@ -42,13 +42,12 @@ export default function NewIncident() {
             <div className="content">
                 <section>
                     <img src={logoImg} alt="Be The Hero" />
-                    <h1>Cadastrar novo caso</h1>
+                    <h1>Register new case</h1>
                     <p>
-                        Descreva o caso detalhadamente para encontrar um herói para resolver
-                        isso.
+                        Describe the case to found a hero to solve it.
                     </p>
 
-                    <Link to="/" className="back-link">
+                    <Link to="/profile" className="back-link">
                         <FiArrowLeft size={16} color="#e02041" />
                         Back to home
                     </Link>

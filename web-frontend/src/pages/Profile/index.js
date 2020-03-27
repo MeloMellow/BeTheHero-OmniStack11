@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from "react-router-dom";
 import { FiPower, FiTrash2 } from "react-icons/fi";
 
@@ -10,7 +10,41 @@ import "./styles.css";
 
 export default function Profile(){
 
+    const [incidents, setIncidents] = useState([]);
 
+    const ongName = localStorage.getItem("ongName");
+    const ongId = localStorage.getItem("ongId");
+
+    const history = useHistory();
+
+    useEffect(() => {
+        api
+        .get("/profile", {
+            headers: { Authorization: ongId }
+        })
+        .then(response => {
+            setIncidents(response.data);
+        });
+    }, [ongId]);
+
+    async function handleDeleteIncident(id) {
+        try {
+        await api.delete(`incidents/${id}`, {
+            headers: {
+            Authorization: ongId
+            }
+        });
+
+        setIncidents(incidents.filter(incident => incident.id !== id));
+        } catch (err) {
+        alert("Error");
+        }
+    }
+
+    function handleLogout() {
+        localStorage.clear();
+        history.push("/");
+    }
 
     return (
         <div className="profile-container">
@@ -19,7 +53,7 @@ export default function Profile(){
                 <span>Welcome, {ongName}</span>
 
                 <Link to="/incidents/new" className="button">
-                    Register new caSe
+                    Register new Case
                 </Link>
 
                 <button type="button" onClick={handleLogout}>

@@ -38,7 +38,7 @@ export default StyleSheet.create({
         padding: 24,
         borderRadius: 8,
         backgroundColor: '#FFF',
-        marginBottom: 16
+        marginBottom: 16,
     },
     incidentProperty: {
         fontSize: 14,

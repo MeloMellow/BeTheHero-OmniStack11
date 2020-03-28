@@ -10,19 +10,39 @@ import logoImg from '../../assets/logo.png';
 import styles from './styles';
 
 export default function Incidents(){
-    const [incidents, setIncdidents] = useState([]);
+    const [incidents, setIncidents] = useState([]);
     const [total, setTotal] = useState(0);
-    const navigation = useNavigation();
 
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+    
+    const navigation = useNavigation();
+ 
     function navigateToDetail(incident){
         navigation.navigate('Detail', { incident });
     }
 
     async function loadIncidents(){
-        const resp = await api.get('/incidents');
+        if (loading){
+            return;
+        }
 
-        setIncdidents(resp.data);
+        if (total > 0 && incidents.length === total){
+            return;
+        }
+
+        setLoading(true);
+
+        const resp = await api.get('/incidents',{
+            params : {
+                page: page
+            }
+        });
+
+        setIncidents([...incidents, ...resp.data]);
         setTotal(resp.headers['x-total-count']);
+        setPage(page + 1);
+        setLoading(false);
     }
 
     useEffect(()=>{
@@ -45,7 +65,9 @@ export default function Incidents(){
                 style={styles.incidentList} 
                 data={incidents}
                 keyExtractor={incident => String(incident.id)}
-                showsVerticalScrollIndicator={false}
+                // showsVerticalScrollIndicator={false}
+                onEndReached={loadIncidents}
+                onEndReachedThreshold={0.2}
                 renderItem={({ item: incident })=>(
                     <View style={styles.incident}>
                         <Text style={styles.incidentProperty}>ONG: </Text>

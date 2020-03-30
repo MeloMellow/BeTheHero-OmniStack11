@@ -4,12 +4,26 @@
 
 #### Be The Hero allows Charities to find people interested in helping with their financial problems.
 
+![](/img/1.png)
+![](/img/2.png)
+![](/img/3.png)
+
+<p float="left">
+<img src ="img/4.png" 
+height ="640" width="360" >
+<img src ="img/5.png" 
+height ="640" width="360" >
+<img src ="img/6.png" 
+height ="640" width="360" >
+</p>
+
 #### Main Platforms and Frameworks used:
 - NodeJS
 - React-Naive
 - ReactJS
 #### Other Frameworks and Tecnologies:
 - Express
-- Socketio
 - Expo
-- MongoDB
+- Knex
+- Jest
+- Celebrate/Joi
